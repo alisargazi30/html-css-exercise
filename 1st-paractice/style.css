@@ -1,42 +1,42 @@
 /* add font */
 @font-face {
   font-family: "Iransans";
-  src: url("../fonts/IRANSansWeb.eot") format("eot");
+  src: url("IRANSansWeb.eot") format("eot");
 }
 
 @font-face {
   font-family: "Iransans";
-  src: url("../fonts/IRANSansWeb.ttf") format("ttf");
+  src: url("IRANSansWeb.ttf") format("ttf");
 }
 
 @font-face {
   font-family: "Iransans";
-  src: url("../fonts/IRANSansWeb.woff") format("woff");
+  src: url("IRANSansWeb.woff") format("woff");
 }
 
 @font-face {
   font-family: "Iransans";
-  src: url("../fonts/IRANSansWeb.woff2") format("woff2");
+  src: url("IRANSansWeb.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Iransans-medium";
-  src: url("../fonts/IRANSansWeb_Medium.eot") format("eot");
+  src: url("IRANSansWeb_Medium.eot") format("eot");
 }
 
 @font-face {
   font-family: "Iransans-medium";
-  src: url("../fonts/IRANSansWeb_Medium.ttf") format("ttf");
+  src: url("IRANSansWeb_Medium.ttf") format("ttf");
 }
 
 @font-face {
   font-family: "Iransans-medium";
-  src: url("../fonts/IRANSansWeb_Medium.woff") format("woff");
+  src: url("IRANSansWeb_Medium.woff") format("woff");
 }
 
 @font-face {
   font-family: "Iransans-medium";
-  src: url("../fonts/IRANSansWeb_Medium.woff2") format("woff2");
+  src: url("IRANSansWeb_Medium.woff2") format("woff2");
 }
 
 /* به عنصر body font-family و font-size 16px دهید. */
@@ -315,3 +315,4 @@ footer {
 footer p {
     color: #fff;
 }
+
