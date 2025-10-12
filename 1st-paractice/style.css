@@ -1,0 +1,317 @@
+/* add font */
+@font-face {
+  font-family: "Iransans";
+  src: url("../fonts/IRANSansWeb.eot") format("eot");
+}
+
+@font-face {
+  font-family: "Iransans";
+  src: url("../fonts/IRANSansWeb.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Iransans";
+  src: url("../fonts/IRANSansWeb.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Iransans";
+  src: url("../fonts/IRANSansWeb.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Iransans-medium";
+  src: url("../fonts/IRANSansWeb_Medium.eot") format("eot");
+}
+
+@font-face {
+  font-family: "Iransans-medium";
+  src: url("../fonts/IRANSansWeb_Medium.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Iransans-medium";
+  src: url("../fonts/IRANSansWeb_Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Iransans-medium";
+  src: url("../fonts/IRANSansWeb_Medium.woff2") format("woff2");
+}
+
+/* به عنصر body font-family و font-size 16px دهید. */
+/* Give the body element a font-family and font size 16px*/
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --color: #a0cc265d;
+}
+
+body {
+  font-family: "Iransans";
+  font-size: 1rem;
+  background-color: #f1f1f1;
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* به تگ header استایل دلخواه خود را دهید. */
+/* Give the header element a custom style */
+
+header {
+  width: 100%;
+  background-color: var(--color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: 0.6s all;
+}
+
+/* استایل دلخواه خود را به تگ h1 دهید. */
+/* Give the h1 element a custom style */
+
+@-webkit-keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+.scale-up-center {
+  -webkit-animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1)
+    both;
+  animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+/* Custom Style For section */
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+section .links {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+/* End Custom Style For section */
+
+/* به همه تگ های a استایل دلخواه و مناسب دهید. */
+/*  Give the a element a custom style  */
+
+a {
+  text-decoration: none;
+  color: #000;
+  transition: 0.1s all;
+  width: 150px;
+  height: 50px;
+  background: var(--color);
+  padding: 10px;
+  margin: 10px auto;
+  text-align: center;
+  vertical-align: center;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+a:hover {
+  border-bottom: 2px solid #0f73cf;
+  color: #0f73cf;
+  background: transparent;
+  letter-spacing: 0.5px;
+}
+
+/* به لینک هایی که دیده شدند رنگ دلخواه دهید.  */
+/* Make the <a> element's that have been visited custom color */
+
+a:visited {
+  color: green;
+}
+
+a[href^="#"] {
+  color: red;
+}
+
+/* تگ های ol,ul padding and marker  نداشته باشد. */
+/* ol, ul elements  padding and marker removed */
+
+ol,
+ul {
+  list-style: none;
+  padding: 0;
+  border-radius: 5px;
+}
+
+/* به عنصر li استایل های text-align center,line-height 2,  background of slategrey را بدهید.  */
+/* Give the li element a text-align center,line-height 2,  background of slategrey*/
+
+li {
+  text-align: center;
+  line-height: 2rem;
+  background-color: slategrey;
+}
+
+/*  box  استایل های  width 200px,margin 10px auto را بدهید. به هر کلاسی با نام  */
+/* Give everything with the class 'box' a width 200px,margin 10px auto */
+
+.box {
+  width: 200px;
+  margin: 10px auto;
+}
+
+/* اولین پاراگراف را انتخاب کنید واستایل دلخواه خود را بدهید. */
+/* Selecting the first paragraph and Give custom style */
+
+p:first-child {
+  color: blue;
+}
+
+p:nth-child(1) {
+  color: blue;
+}
+
+p:nth-child(1)::selection {
+  color: red;
+  background-color: blue;
+}
+
+p:nth-child(1)::first-line {
+  font: 18px;
+  color: purple;
+}
+
+/* آخرین پاراگراف را انتخاب کنید واستایل دلخواه خود را بدهید. */
+/* Selecting the last paragraph  and Give custom style */
+
+p:last-child {
+    color: rgb(255, 255, 255);
+    font-family: 'Iransans-medium';
+}
+
+/*سومین پاراگراف را انتخاب کنید و استایل دلخواه خود را دهید   */
+/* Selects the third paragraph and Give custom style*/
+
+p:nth-child(3) {
+    color: green;
+    text-align: justify;
+    line-height: 2;
+}
+
+p:nth-child(3)::first-letter {
+    color: red;
+}
+
+/* چهارمین پاراگراف را انتخاب کنید و استایل دلخواه خود را دهید. */
+/* Selects the Fourth paragraph and Give custom style*/
+
+p:nth-child(4) {
+    color: #e12fac;
+}
+
+/*  پنجمین پاراگراف را انتخاب کنید و استایل دلخواه خود را دهید.  */
+/* Selects the fifth paragraph and Give custom style*/
+
+p:nth-child(5) {
+    background-color: var(--color);
+    padding: 5px;
+    border-radius: 5px;
+    line-height: 2;
+}
+
+p:nth-child(5)::first-line {
+    color: #867979;
+}
+
+/*عناصر li  کلاس one را که اولین فرزند والد خود هستند انتخاب کنید */
+/* استایل دلخواه خود را دهید */
+/* Select the li elements of the one class that are the first child of their parent and Give custom style */
+
+.one {
+    display: flex;
+    gap: 10px;
+    justify-content: space-evenly;
+    width: 100%;
+    transition: .3s all;
+}
+
+.one ul, ol {
+    width: 30%;
+}
+
+.one li:nth-child(1) {
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.one li:hover {
+    border-bottom: 2px solid;
+}
+
+/* عناصر فرد li عناصر داخل کلاس two را انتخاب کنید */
+/* استایل دلخواه خود را دهید */
+/* Odd elements li Select elements inside class two and Give custom style*/
+
+.two {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: space-around;
+}
+
+.two ol, ul {
+    width: 30%;
+}
+
+.two li:nth-child(odd) {
+    color: red;
+}
+
+/* هر عنصر li کلاس three را که دومین عنصر li از والد خود از آخر باشد را انتخاب کنید */
+/* استایل دلخواه خود را دهید */
+/* Select any li element of the three class that is the second last li element of its parent and Give custom style*/
+
+.three li:nth-last-child(2) {
+    color: rgb(128, 9, 0);
+}
+
+/* عناصر li زوج  کلاس چهارم را که از والد خود از آخر باشد را انتخاب کنید. */
+/* استایل دلخواه خود را دهید */
+/*Select the elements li of the four class pair that is the last from its parent. and Give custom style */
+
+.four li:last-child {
+    color: papayawhip;
+}
+
+/* Footer Style */
+footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: blue;
+    color: #fff;
+}
+
+footer p {
+    color: #fff;
+}
