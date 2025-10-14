@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Start Meta Tag -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="author" content="Alireza Sargazi, علیرضا سرگزی" />
+    <meta name="keyword" content="All The Keyword" />
+    <meta name="description" content="The description" />
+    <!-- End Meta Tag -->
+    <title>The Form - Alireza Sargazi</title>
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      href="./images/favicon16x16.png"
+      type="image/x-icon"
+      sizes="16x16"
+    />
+    <link
+      rel="shortcut icon"
+      href="./images/favicon32x32.png"
+      type="image/x-icon"
+      sizes="32x32"
+    />
+    <link
+      rel="shortcut icon"
+      href="./images/favicon.png"
+      type="image/x-icon"
+      sizes="64x64"
+    />
+    <!-- End Favicon -->
+  </head>
+  <body>
+    <table style="width: 100%">
+      <tr>
+        <td>
+          <h2>Personal Information</h2>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <form action="#" enctype="multipart/form-data">
+            <fieldset>
+              <legend style="color: red">Personal Details</legend>
+              <label for="fname">Name : </label> <br />
+              <input
+                type="text"
+                name="fname"
+                id="fname"
+                placeholder="Enter Name Here..."
+                size="50"
+                style="height: 30px"
+              />
+              <br />
+              <br />
+              <label for="address">Address : </label> <br />
+              <input
+                type="text"
+                id="address"
+                name="address"
+                placeholder="Enter Address Here..."
+                size="50"
+                style="height: 30px"
+              />
+              <br />
+              <br />
+              <label for="email">Email : </label> <br />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter Email Here..."
+                size="50"
+                style="height: 30px"
+              />
+              <br /><br />
+              <label for="phoneNum">Phone Number : </label><br />
+              <input
+                type="number"
+                id="phoneNum"
+                name="phoneNum"
+                placeholder="Enter Phone Number Here..."
+                style="height: 30px; width: 360px"
+              /><br /><br />
+              <span>Gender : </span> <br />
+              <br />
+              <input
+                type="radio"
+                name="Gender"
+                id="male"
+                value="male"
+                checked
+              />
+              <label for="male">Male</label> <br />
+              <input type="radio" name="Gender" id="female" value="female" />
+              <label for="female">Femail</label> <br /><br />
+              <label for="birth">Date Of Birth : </label> <br />
+              <input
+                type="date"
+                name="Birth"
+                id="birth"
+                style="width: 360px; height: 30px"
+              />
+              <hr />
+              <div>languages and frameworks known :</div>
+              <br />
+              <input
+                type="checkbox"
+                name="JAVASCRIPT"
+                id="JAVASCRIPT"
+                value="True"
+              />
+              <label for="JAVASCRIPT">JAVASCRIPT</label> <br />
+              <input type="checkbox" name="REACT" id="REACT" value="True" />
+              <label for="REACT">REACT</label> <br />
+              <input type="checkbox" name="c#" id="c#" value="True" />
+              <label for="c#">C#</label> <br />
+              <input type="checkbox" name="c++" id="c++" value="True" checked />
+              <label for="c++">C++</label> <br />
+              <input
+                type="checkbox"
+                name="PYTHON"
+                id="PYTHON"
+                value="True"
+                checked
+              />
+              <label for="PYTHON">PYTHON</label> <br />
+              <input
+                type="checkbox"
+                name="Django"
+                id="Django"
+                value="True"
+                checked
+              />
+              <label for="Django">Django</label> <br />
+              <br />
+              <hr />
+              <span>Education Level Completed : </span>
+              <select name="university" id="university">
+                <option value="0" selected>university</option>
+                <option value="sharif">sharif</option>
+                <option value="Tehran">Tehran</option>
+                <option value="harvard">Harvard</option>
+                <option value="london">London</option>
+                <option value="zahedan">Zahedan</option>
+                <option value="kish">Kish</option>
+                <option value="zabol">zabol</option>
+              </select>
+            </fieldset>
+            <fieldset>
+              <legend style="color: red">Message Section</legend>
+              <label for="Massage">Massage : </label> <br />
+              <br />
+              <textarea
+                name="Massage"
+                id="Massage"
+                placeholder="write Massage Here..."
+                rows="7"
+                cols="60"
+              ></textarea>
+              <br /><br />
+              <label for="files">Upload Files : </label> <br />
+              <br />
+              <input type="file" name="files" id="files" multiple /> <br />
+              <br />
+              <div style="text-align: center">
+                <input
+                  type="submit"
+                  value="Send"
+                  style="
+                    background-color: #000;
+                    color: #fff;
+                    padding: 10px;
+                    width: 150px;
+                    cursor: pointer;
+                  "
+                />
+              </div>
+            </fieldset>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
