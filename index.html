@@ -1,75 +1,167 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="author" content="Alireza Sargazi, علیرضا سرگزی" />
-  <meta name="robots" content="index, follow" />
-  <meta name="googlebot" content="index, follow" />
-  <meta name="keyword" content="exercise, html, css, solve-the-exercise, تمرین، حل تمرین" />
-  <meta name="description" content="The exercise and solve-the-exercise from html and css" />
-  <title>تمرین‌های HTML و CSS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تمارین HTML & CSS</title>
+  
+  <!-- فونت فارسی -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: sans-serif;
-      background: #f4f6f8;
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
       color: #333;
-      padding: 40px;
-      line-height: 1.8;
-      direction: rtl;
     }
-    h1 {
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       text-align: center;
-      color: #222;
     }
-    .list {
-      max-width: 500px;
-      margin: 40px auto;
+
+    h1 {
+      color: white;
+      margin-bottom: 50px;
+      font-size: 2.8rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
-    .item {
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 20px;
+    }
+
+    .card {
       background: white;
-      padding: 15px 20px;
-      border-radius: 12px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-      transition: transform 0.2s ease;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
     }
-    .item:hover {
-      transform: translateY(-3px);
+
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
-    a {
-      color: #007acc;
-      text-decoration: none;
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .card-img {
+      height: 160px;
+      background: linear-gradient(45deg, #a29bfe, #6c5ce7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
       font-weight: bold;
     }
-    a:hover {
-      text-decoration: underline;
+
+    .card-content {
+      padding: 20px;
     }
-    p {
-      margin: 5px 0 0;
-      color: #666;
-      font-size: 14px;
+
+    .card h3 {
+      margin-bottom: 8px;
+      color: #2d3436;
+      font-size: 1.4rem;
+    }
+
+    .card p {
+      color: #636e72;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #6c5ce7;
+      color: white;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      .cards { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <h1>🌱 تمرین‌های HTML و CSS</h1>
+  <div class="container">
+    <h1>تمارین HTML & CSS - Alireza Sargazi</h1>
 
-  <div class="list">
-    <div class="item">
-      <a href="./1st-paractice/index.html">تمرین اول</a>
-      <p>کار با تگ‌های پایه HTML</p>
-    </div>
+    <div class="cards">
 
-    <div class="item">
-      <a href="./2nd-paractice/index.html">تمرین دوم</a>
-      <p>طراحی فرم ساده با CSS</p>
-    </div>
+      <!-- کارت تمرین 1 -->
+      <div class="card">
+        <a href="./1st-paractice/index.html">
+          <div class="card-img">1</div>
+          <div class="card-content">
+            <h3>تمرین ۱: کارت ویزیت</h3>
+            <p>ساخت یک کارت ویزیت حرفه‌ای با Flexbox و سایه‌های زیبا.</p>
+            <span class="badge">Flexbox</span>
+          </div>
+        </a>
+      </div>
 
-    <div class="item">
-      <a href="./3rd-paractice/index.html">تمرین سوم</a>
-      <p>آشنایی با Flexbox و چیدمان المان‌ها</p>
+      <!-- کارت تمرین 2 -->
+      <div class="card">
+        <a href="./2nd-paractice/index.html">
+          <div class="card-img">2</div>
+          <div class="card-content">
+            <h3>تمرین ۲: منوی ناوبری</h3>
+            <p>منوی ریسپانسیو با افکت hover و انیمیشن نرم.</p>
+            <span class="badge">CSS Animation</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- کارت تمرین 3 -->
+      <div class="card">
+        <a href="./3rd-paractice/index.html">
+          <div class="card-img">3</div>
+          <div class="card-content">
+            <h3>تمرین ۳: گالری تصاویر</h3>
+            <p>گالری تصاویر با Grid و افکت بزرگ‌نمایی.</p>
+            <span class="badge">CSS Grid</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- می‌تونی کارت‌های بیشتری اضافه کنی -->
+       
+
     </div>
   </div>
 
