@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fa-IR" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The 1st Exercise - Alireza Sargazi</title>
+    <link rel="stylesheet" href="./css/style.css" type="text/css" />
+  </head>
+  <body>
+    <!-- question 1 -->
+    <div>
+      <span style="color: red; font-size: 20px">سوال 1 : </span>
+      <label for="num">عدد : </label>
+      <input
+        type="number"
+        id="num"
+        name="num"
+        placeholder="عدد خود را وارد کنید : "
+      />
+      <button onclick="OddEven()">زوج و فرد</button>
+      <h3 id="oddEvenResult"></h3>
+    </div>
+
+    <!-- question 2 -->
+    <div>
+              <span style="color: red; font-size: 20px">سوال 2 : </span>
+
+      <label for="num1">عدد : </label>
+      <input
+        type="number"
+        id="num1"
+        name="num1"
+        placeholder="عدد خود را وارد کنید : "
+      />
+      <button onclick="SumNumbers()" id="sumBtn">جمع اعداد</button>
+      <h3 id="res"></h3>
+    </div>
+
+    <!-- question 3 -->
+    <div>
+              <span style="color: red; font-size: 20px">سوال 3 : </span>
+
+      <label for="num3">عدد : </label>
+      <input
+        type="number"
+        id="num3"
+        name="num3"
+        placeholder="عدد خود را وارد کنید : "
+      />
+      <button onclick="DrawTriangle()" id="drawBtn">رسم مثلث</button>
+      <h3 id="triangleResult"></h3>
+    </div>
+
+
+    <!-- question 4 -->
+    <div>
+              <span style="color: red; font-size: 20px">سوال 4 : </span>
+      <label for="num4">عدد : </label>
+      <input
+        type="number"
+        id="num4"
+        name="num4"
+        placeholder="عدد خود را وارد کنید : "
+      />
+      <button onclick="DivisibleBy3And7()" id="divisibleBy3And7Btn">اعداد بخش پذیر به 3 و 7</button>
+      <h3 id="divisibleBy3And7Result"></h3>
+    </div>
+    <script src="./js/app.js"></script>
+  </body>
+</html>
