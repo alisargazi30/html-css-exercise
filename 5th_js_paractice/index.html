@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تمرین جاوااسکریپت | ورود و ثبت‌نام</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #211a3b;
+      --purple: #625078;
+      --blue: #5599ec;
+      --panel: #eeeeef;
+      --text: #252238;
+      --muted: #777486;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 28px 16px;
+      font-family: "Vazirmatn", Tahoma, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 15%, rgba(85,153,236,.16) 0 7%, transparent 7.2%),
+        radial-gradient(circle at 90% 85%, rgba(98,80,120,.13) 0 10%, transparent 10.2%),
+        #f5f6fa;
+    }
+
+    .page { width: min(100%, 430px); }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 13px;
+      border-radius: 999px;
+      color: var(--purple);
+      background: #e9e4f1;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    h1 { font-size: clamp(22px, 5vw, 29px); margin: 0 0 8px; }
+    .intro p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.9; }
+
+    .card {
+      overflow: hidden;
+      background: var(--panel);
+      border: 7px solid var(--navy);
+      border-radius: 26px;
+      box-shadow: 0 22px 50px rgba(33,26,59,.18);
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 12px;
+      background: var(--navy);
+    }
+
+    .tab {
+      border: 0;
+      border-radius: 12px;
+      padding: 13px 8px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      color: #f7f5fc;
+      background: transparent;
+      transition: background .2s, color .2s, transform .2s;
+    }
+
+    .tab:hover { transform: translateY(-1px); }
+    .tab[aria-selected="true"] { color: var(--navy); background: #fff; }
+
+    .form-panel {
+      min-height: 390px;
+      padding: 28px clamp(18px, 6vw, 34px) 30px;
+      background: var(--panel);
+      animation: appear .24s ease;
+    }
+
+    @keyframes appear {
+      from { opacity: .4; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-panel h2 { margin: 0 0 8px; text-align: center; font-size: 25px; }
+    .helper { text-align: center; color: var(--muted); font-size: 13px; margin: 0 0 24px; }
+
+    .field { margin-bottom: 15px; }
+    label { display: block; font-size: 13px; margin: 0 2px 7px; font-weight: 700; }
+
+    input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #d5d3dc;
+      border-radius: 10px;
+      outline: none;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(85,153,236,.16);
+    }
+
+    .submit {
+      width: 100%;
+      margin-top: 5px;
+      border: 0;
+      border-radius: 10px;
+      padding: 14px;
+      background: var(--purple);
+      color: white;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #47385e;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .submit:hover { background: #544268; }
+    .submit:active { transform: translateY(3px); box-shadow: 0 2px 0 #47385e; }
+
+    .message {
+      display: none;
+      margin-top: 16px;
+      padding: 11px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      line-height: 1.8;
+      background: #e0f4e8;
+      color: #17633b;
+    }
+
+    .message.error { background: #ffe6e6; color: #9b2222; }
+    .message.show { display: block; }
+
+    .switch-note { text-align: center; font-size: 12px; color: var(--muted); margin: 20px 0 0; }
+    .switch-note button {
+      border: 0; padding: 0; color: #345f9c; background: none;
+      font: inherit; font-weight: 700; cursor: pointer;
+    }
+
+    footer { text-align: center; color: #8b8798; font-size: 11px; margin-top: 18px; }
+
+    @media (max-width: 380px) {
+      .card { border-width: 5px; border-radius: 20px; }
+      .form-panel { min-height: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="intro">
+      <span class="eyebrow">تمرین طراحی وب • JavaScript</span>
+      <h1>ورود و ثبت‌نام کاربران</h1>
+      <p>برای نمایش فرم دلخواه، یکی از دکمه‌های زیر را انتخاب کنید.</p>
+    </header>
+
+    <section class="card" aria-label="فرم ورود و ثبت‌نام">
+      <div class="tabs" role="tablist" aria-label="انتخاب فرم">
+        <button class="tab" id="loginTab" type="button" role="tab"
+          aria-controls="formPanel" aria-selected="false">ورود</button>
+        <button class="tab" id="signupTab" type="button" role="tab"
+          aria-controls="formPanel" aria-selected="true">ثبت‌نام</button>
+      </div>
+
+      <div class="form-panel" id="formPanel" role="tabpanel">
+        <h2 id="formTitle">ثبت‌نام</h2>
+        <p class="helper" id="formHelper">برای ساخت حساب، اطلاعات زیر را وارد کنید.</p>
+
+        <form id="userForm" novalidate>
+          <div class="field">
+            <label for="email">ایمیل</label>
+            <input id="email" name="email" type="email" placeholder="مثلاً name@example.com"
+              autocomplete="email" required>
+          </div>
+
+          <div class="field">
+            <label for="password">رمز عبور</label>
+            <input id="password" name="password" type="password" placeholder="رمز عبور خود را وارد کنید"
+              autocomplete="new-password" minlength="6" required>
+          </div>
+
+          <div class="field" id="confirmField">
+            <label for="confirmPassword">تکرار رمز عبور</label>
+            <input id="confirmPassword" name="confirmPassword" type="password"
+              placeholder="رمز عبور را دوباره وارد کنید" autocomplete="new-password">
+          </div>
+
+          <button class="submit" id="submitButton" type="submit">ایجاد حساب</button>
+          <div class="message" id="message" role="status" aria-live="polite"></div>
+        </form>
+
+        <p class="switch-note" id="switchNote">
+          قبلاً حساب ساخته‌اید؟
+          <button type="button" id="switchButton">ورود به حساب</button>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // انتخاب عناصر مورد نیاز صفحه
+    const loginTab = document.getElementById('loginTab');
+    const signupTab = document.getElementById('signupTab');
+    const formTitle = document.getElementById('formTitle');
+    const formHelper = document.getElementById('formHelper');
+    const confirmField = document.getElementById('confirmField');
+    const passwordInput = document.getElementById('password');
+    const confirmInput = document.getElementById('confirmPassword');
+    const submitButton = document.getElementById('submitButton');
+    const switchNote = document.getElementById('switchNote');
+    const switchButton = document.getElementById('switchButton');
+    const userForm = document.getElementById('userForm');
+    const message = document.getElementById('message');
+
+    let currentMode = 'signup';
+
+    // با کلیک روی دکمه‌ها، فرم مناسب نمایش داده می‌شود.
+    function showForm(mode) {
+      currentMode = mode;
+      const isSignup = mode === 'signup';
+
+      formTitle.textContent = isSignup ? 'ثبت‌نام' : 'ورود';
+      formHelper.textContent = isSignup
+        ? 'برای ساخت حساب، اطلاعات زیر را وارد کنید.'
+        : 'برای ورود به حساب خود، اطلاعاتتان را وارد کنید.';
+      confirmField.hidden = !isSignup;
+      confirmInput.required = isSignup;
+      passwordInput.autocomplete = isSignup ? 'new-password' : 'current-password';
+      submitButton.textContent = isSignup ? 'ایجاد حساب' : 'ورود به حساب';
+
+      signupTab.setAttribute('aria-selected', String(isSignup));
+      loginTab.setAttribute('aria-selected', String(!isSignup));
+
+      switchNote.firstChild.textContent = isSignup
+        ? 'قبلاً حساب ساخته‌اید؟ '
+        : 'حساب کاربری ندارید؟ ';
+      switchButton.textContent = isSignup ? 'ورود به حساب' : 'ثبت‌نام کنید';
+
+      message.className = 'message';
+      message.textContent = '';
+      userForm.reset();
+    }
+
+    loginTab.addEventListener('click', () => showForm('login'));
+    signupTab.addEventListener('click', () => showForm('signup'));
+    switchButton.addEventListener('click', () => {
+      showForm(currentMode === 'signup' ? 'login' : 'signup');
+    });
+
+    // اعتبارسنجی ساده آموزشی؛ این نمونه به سرور متصل نیست.
+    userForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      message.className = 'message';
+      message.textContent = '';
+
+      const email = document.getElementById('email').value.trim();
+      const password = passwordInput.value;
+      const confirmPassword = confirmInput.value;
+
+      if (!email || !password) {
+        showMessage('لطفاً ایمیل و رمز عبور را وارد کنید.', true);
+        return;
+      }
+
+      if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {
+        showMessage('لطفاً یک ایمیل معتبر وارد کنید.', true);
+        return;
+      }
+
+      if (password.length < 6) {
+        showMessage('رمز عبور باید حداقل ۶ نویسه داشته باشد.', true);
+        return;
+      }
+
+      if (currentMode === 'signup' && password !== confirmPassword) {
+        showMessage('رمز عبور و تکرار آن یکسان نیستند.', true);
+        return;
+      }
+
+      showMessage(
+        currentMode === 'signup'
+          ? 'فرم ثبت‌نام با موفقیت بررسی شد. برای ثبت واقعی، باید آن را به سرور متصل کنید.'
+          : 'اطلاعات ورود بررسی شد. برای ورود واقعی، باید آن را به سرور متصل کنید.',
+        false
+      );
+    });
+
+    function showMessage(text, isError) {
+      message.textContent = text;
+      message.className = isError ? 'message error show' : 'message show';
+    }
+
+    // حالت اولیه صفحه
+    showForm('signup');
+  </script>
+</body>
+</html>
