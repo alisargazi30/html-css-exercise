@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="css/style.css" /> -->
+    <style>
+      /* ======================================================
+   تمرین شماره ۳ - موضوع DOM
+   طراحی صفحه «خدمات ارسال غذا»
+   ====================================================== */
+
+      :root {
+        --orange: #f26a21;
+        --orange-dark: #d8540f;
+        --green: #9bc12c;
+        --green-dark: #86a823;
+        --dark: #2b2b2b;
+        --gray: #777;
+        --white: #fff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Tahoma, "Segoe UI", sans-serif;
+        background: #fff;
+        color: var(--dark);
+        line-height: 1.9;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        width: min(1200px, 92%);
+        margin-inline: auto;
+      }
+
+      /* ================= نوار بالای صفحه ================= */
+      .top-bar {
+        background: var(--white);
+        padding: 14px 0;
+        border-bottom: 1px solid #f1f1f1;
+      }
+
+      .top-bar__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 26px;
+        font-weight: bold;
+        color: var(--dark);
+      }
+
+      .logo__text em {
+        color: var(--orange);
+        font-style: italic;
+      }
+
+      .top-bar__info {
+        display: flex;
+        gap: 28px;
+        flex-wrap: wrap;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--gray);
+        line-height: 1.6;
+      }
+
+      .info-item__icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--orange);
+        color: var(--white);
+        display: grid;
+        place-items: center;
+        font-size: 15px;
+      }
+
+      .socials {
+        display: flex;
+        gap: 8px;
+      }
+
+      .socials a {
+        width: 28px;
+        height: 28px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        display: grid;
+        place-items: center;
+        font-size: 12px;
+        color: var(--gray);
+        transition: all 0.25s;
+      }
+
+      .socials a:hover {
+        background: var(--orange);
+        border-color: var(--orange);
+        color: var(--white);
+      }
+
+      /* ================= منوی اصلی (سؤال ۱) =================
+   حالت عادی: منو داخل جریان عادی صفحه و با ارتفاع/فونت معمولی
+   حالت اسکرول: کلاس .sticky با جاوااسکریپت اضافه می‌شود و
+   منو ثابت (fixed) و بزرگ‌تر می‌شود.
+   ======================================================= */
+      .navbar {
+        background: var(--orange);
+        width: 100%;
+        z-index: 100;
+        transition:
+          padding 0.3s ease,
+          background 0.3s ease,
+          box-shadow 0.3s ease;
+        padding: 6px 0;
+      }
+
+      .navbar__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .navbar__menu {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .navbar__menu a {
+        display: inline-block;
+        padding: 10px 16px;
+        color: var(--white);
+        font-size: 14px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+
+      .navbar__menu a:hover,
+      .navbar__menu a.active {
+        background: var(--orange-dark);
+      }
+
+      .navbar__cart {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--white);
+        font-size: 14px;
+        transition: font-size 0.3s ease;
+      }
+
+      /* ---- حالت ثابت و بزرگ‌تر شدن منو هنگام اسکرول ---- */
+      .navbar.sticky {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        padding: 16px 0; /* ارتفاع بیشتر */
+        background: var(--orange);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      }
+
+      .navbar.sticky .navbar__menu a {
+        padding: 12px 22px;
+        font-size: 17px; /* فونت بزرگ‌تر */
+      }
+
+      .navbar.sticky .navbar__cart {
+        font-size: 18px;
+      }
+
+      /* این کلاس به body اضافه می‌شود تا با fixed شدن منو،
+   محتوای صفحه به اندازه ارتفاع منو بالا نپرد. */
+      body.has-sticky-nav .hero {
+        margin-top: var(--navbar-height, 0px);
+      }
+
+      /* ================= بخش معرفی ================= */
+      .hero {
+        position: relative;
+        min-height: 86vh;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: var(--white);
+        background: linear-gradient(135deg, #3b2f27, #7a5c3e 45%, #c98b4b);
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+      }
+
+      .hero__overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+      }
+
+      .hero__content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero__sub {
+        font-size: 20px;
+        margin-bottom: 6px;
+      }
+
+      .hero__title {
+        font-size: 58px;
+        margin-bottom: 18px;
+        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero__text {
+        max-width: 720px;
+        margin: 0 auto 26px;
+        font-size: 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        background: var(--green);
+        color: var(--white);
+        padding: 12px 38px;
+        border-radius: 30px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        background: var(--green-dark);
+        transform: translateY(-2px);
+      }
+
+      /* ================= منوی غذایی (سؤال ۲) ================= */
+      .menu-section {
+        padding: 70px 0 90px;
+        background: linear-gradient(135deg, #4a3b30, #6d5542);
+      }
+
+      .section-title {
+        text-align: center;
+        color: var(--white);
+        font-size: 38px;
+        margin-bottom: 45px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+      }
+
+      .section-title--dark {
+        color: var(--dark);
+        text-shadow: none;
+      }
+
+      .food-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 30px;
+        align-items: start;
+      }
+
+      /* --- کارت غذا: حالت عادی = تصویر شماره ۳ --- */
+      .food-card {
+        background: var(--white);
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        transition:
+          transform 0.35s ease,
+          box-shadow 0.35s ease;
+      }
+
+      .food-card__img {
+        height: 230px;
+        display: grid;
+        place-items: center;
+        font-size: 90px;
+        background: #f6f6f6;
+        transition: height 0.35s ease;
+      }
+
+      .food-card__img--sushi {
+        background: #fdeee2;
+      }
+      .food-card__img--burger {
+        background: #fbe7d8;
+      }
+      .food-card__img--pizza {
+        background: #fdf0d8;
+      }
+      .food-card__img--pasta {
+        background: #f3eee2;
+      }
+      .food-card__img--salad {
+        background: #eaf5e0;
+      }
+      .food-card__img--dessert {
+        background: #fae7ee;
+      }
+
+      /* نوار سبز عنوان؛ در حالت عادی کوتاه و با لبهٔ مورب */
+      .food-card__title {
+        background: var(--green);
+        color: var(--white);
+        padding: 10px 18px 14px;
+        clip-path: polygon(0 28%, 100% 0, 100% 100%, 0 100%);
+        transition:
+          clip-path 0.35s ease,
+          padding 0.35s ease,
+          background 0.35s ease;
+      }
+
+      .food-card__title h3 {
+        font-size: 17px;
+        font-weight: bold;
+        transition: font-size 0.35s ease;
+      }
+
+      /* توضیح و قیمت در حالت عادی پنهان هستند */
+      .food-card__desc,
+      .food-card__price {
+        display: block;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        font-size: 13px;
+        transition:
+          max-height 0.35s ease,
+          opacity 0.35s ease,
+          margin 0.35s ease;
+      }
+
+      /* --- حالت هاور = تصویر شماره ۴ ---
+   کلاس .hovered با جاوااسکریپت (mouseover/mouseout) اضافه و حذف می‌شود. */
+      .food-card.hovered {
+        transform: translateY(-14px) scale(1.04);
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
+      }
+
+      .food-card.hovered .food-card__img {
+        height: 260px;
+      }
+
+      .food-card.hovered .food-card__title {
+        clip-path: polygon(
+          0 0,
+          100% 0,
+          100% 100%,
+          0 100%
+        ); /* لبه مورب صاف می‌شود */
+        padding: 18px;
+        background: var(--green-dark);
+      }
+
+      .food-card.hovered .food-card__title h3 {
+        font-size: 22px;
+      }
+
+      .food-card.hovered .food-card__desc,
+      .food-card.hovered .food-card__price {
+        max-height: 90px;
+        opacity: 1;
+        margin-top: 6px;
+      }
+
+      .food-card.hovered .food-card__price {
+        font-weight: bold;
+        font-size: 15px;
+      }
+
+      /* ================= درباره ما و فوتر ================= */
+      .about-section {
+        padding: 70px 0;
+        background: #fafafa;
+      }
+
+      .about-text {
+        max-width: 820px;
+        margin-inline: auto;
+        text-align: center;
+        color: var(--gray);
+      }
+
+      .footer {
+        background: var(--dark);
+        color: #ccc;
+        text-align: center;
+        padding: 24px 0;
+        font-size: 14px;
+      }
+
+      /* ================= واکنش‌گرایی ================= */
+      @media (max-width: 860px) {
+        .top-bar__inner {
+          justify-content: center;
+          text-align: center;
+        }
+        .navbar__inner {
+          flex-direction: column;
+          gap: 8px;
+        }
+        .navbar__menu {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .hero__title {
+          font-size: 36px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ======== نوار اطلاعات بالای صفحه ======== -->
+    <div class="top-bar" id="topBar">
+      <div class="container top-bar__inner">
+        <a class="logo" href="#">
+          <span class="logo__icon">🍽</span>
+          <span class="logo__text">Food <em>Delivery</em></span>
+        </a>
+
+        <div class="top-bar__info">
+          <div class="info-item">
+            <span class="info-item__icon">📍</span>
+            <span class="info-item__text">
+              مانی، خیابان شهدا<br />
+              مجتمع صدف ـ طبقه ۳
+            </span>
+          </div>
+          <div class="info-item">
+            <span class="info-item__icon">📞</span>
+            <span class="info-item__text">
+              ۰۹۱۲۳۴۵۶۷۸۹<br />
+              شنبه تا پنجشنبه ۹ صبح - ۱۰ شب
+            </span>
+          </div>
+        </div>
+
+        <div class="socials">
+          <a href="#" aria-label="instagram">in</a>
+          <a href="#" aria-label="twitter">t</a>
+          <a href="#" aria-label="facebook">f</a>
+          <a href="#" aria-label="linkedin">li</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== منوی اصلی (هدف سؤال ۱) ======== -->
+    <nav class="navbar" id="navbar">
+      <div class="container navbar__inner">
+        <ul class="navbar__menu">
+          <li><a class="active" href="#home">خانه</a></li>
+          <li><a href="#about">درباره ما</a></li>
+          <li><a href="#menu">منو</a></li>
+          <li><a href="#pages">صفحات</a></li>
+          <li><a href="#gallery">گالری</a></li>
+          <li><a href="#contact">تماس</a></li>
+          <li><a href="#news">اخبار</a></li>
+        </ul>
+
+        <div class="navbar__cart">
+          <span class="cart-icon">🛒</span>
+          <span class="cart-count">(۲)</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ======== بخش معرفی (تصویر شماره ۱) ======== -->
+    <header class="hero" id="home">
+      <div class="hero__overlay"></div>
+      <div class="container hero__content">
+        <p class="hero__sub">محبوب شما</p>
+        <h1 class="hero__title">خدمات ارسال غذا</h1>
+        <p class="hero__text">
+          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
+          از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و
+          سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز است.
+        </p>
+        <a class="btn" href="#menu">سفارش آنلاین</a>
+      </div>
+    </header>
+
+    <!-- ======== منوی غذایی (هدف سؤال ۲ - تصویرهای ۳ و ۴) ======== -->
+    <section class="menu-section" id="menu">
+      <div class="container">
+        <h2 class="section-title">منوی غذای ما</h2>
+
+        <div class="food-grid">
+          <!-- هر کارت یک «منوی غذایی» است -->
+          <article class="food-card">
+            <div class="food-card__img food-card__img--sushi">🍣</div>
+            <div class="food-card__title">
+              <h3>سوشی</h3>
+              <p class="food-card__desc">
+                سوشی تازه با ماهی سالمون و برنج ژاپنی
+              </p>
+              <span class="food-card__price">۱۸۵,۰۰۰ تومان</span>
+            </div>
+          </article>
+
+          <article class="food-card">
+            <div class="food-card__img food-card__img--burger">🍔</div>
+            <div class="food-card__title">
+              <h3>همبرگر</h3>
+              <p class="food-card__desc">
+                برگر دست‌ساز گوشت گوساله با پنیر چدار
+              </p>
+              <span class="food-card__price">۱۴۵,۰۰۰ تومان</span>
+            </div>
+          </article>
+
+          <article class="food-card">
+            <div class="food-card__img food-card__img--pizza">🍕</div>
+            <div class="food-card__title">
+              <h3>پیتزا</h3>
+              <p class="food-card__desc">
+                پیتزا مخصوص با پنیر موزارلا و قارچ تازه
+              </p>
+              <span class="food-card__price">۱۹۵,۰۰۰ تومان</span>
+            </div>
+          </article>
+
+          <article class="food-card">
+            <div class="food-card__img food-card__img--pasta">🍝</div>
+            <div class="food-card__title">
+              <h3>پاستا</h3>
+              <p class="food-card__desc">
+                پاستا آلفردو با سس خامه‌ای و مرغ گریل
+              </p>
+              <span class="food-card__price">۱۶۵,۰۰۰ تومان</span>
+            </div>
+          </article>
+
+          <article class="food-card">
+            <div class="food-card__img food-card__img--salad">🥗</div>
+            <div class="food-card__title">
+              <h3>سالاد سزار</h3>
+              <p class="food-card__desc">سالاد تازه با سس سزار و نان تست</p>
+              <span class="food-card__price">۹۵,۰۰۰ تومان</span>
+            </div>
+          </article>
+
+          <article class="food-card">
+            <div class="food-card__img food-card__img--dessert">🍰</div>
+            <div class="food-card__title">
+              <h3>دسر</h3>
+              <p class="food-card__desc">چیزکیک توت‌فرنگی با سس شکلات</p>
+              <span class="food-card__price">۷۵,۰۰۰ تومان</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======== بخش‌های تکمیلی برای اینکه صفحه قابل اسکرول باشد ======== -->
+    <section class="about-section" id="about">
+      <div class="container">
+        <h2 class="section-title section-title--dark">درباره ما</h2>
+        <p class="about-text">
+          ما از سال ۱۳۹۰ در کار تهیه و ارسال سریع غذا هستیم. تمام غذاها با مواد
+          اولیه تازه و زیر نظر سرآشپزهای حرفه‌ای آماده می‌شوند و حداکثر ظرف ۴۵
+          دقیقه به دست شما می‌رسند.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer" id="contact">
+      <div class="container">
+        <p>© ۱۴۰۳ ـ تمامی حقوق برای Food Delivery محفوظ است.</p>
+      </div>
+    </footer>
+
+    <script>
+      /* ======================================================
+   تمرین شماره ۳ - موضوع DOM
+   تمام رفتارهای خواسته‌شده در صورت سؤال با جاوااسکریپت
+   و با کمک متدهای DOM پیاده‌سازی شده‌اند.
+   ====================================================== */
+
+      document.addEventListener("DOMContentLoaded", function () {
+        /* ====================================================
+     بخش ۱) ثابت شدن و بزرگ‌تر شدن منو هنگام اسکرول
+     ----------------------------------------------------
+     - با getElementById منو را از DOM می‌گیریم.
+     - نقطه شروع (offsetTop) و ارتفاع اولیه منو را ذخیره می‌کنیم.
+     - با رویداد scroll روی window بررسی می‌کنیم که آیا صفحه
+       از منو عبور کرده است یا نه؛ اگر بله کلاس sticky را با
+       classList.add اضافه و در غیر این صورت با classList.remove
+       حذف می‌کنیم.
+     - چون منو با position:fixed از جریان صفحه خارج می‌شود،
+       به اندازه ارتفاع آن به بدنه صفحه فاصله می‌دهیم تا محتوا نپرد.
+     ==================================================== */
+
+        var navbar = document.getElementById("navbar");
+        var body = document.body;
+
+        // فاصله منو از بالای سند و ارتفاع آن در حالت عادی
+        var navOffsetTop = navbar.offsetTop;
+        var navHeight = navbar.offsetHeight;
+
+        // ارتفاع منو را به صورت یک متغیر CSS در اختیار استایل می‌گذاریم
+        body.style.setProperty("--navbar-height", navHeight + "px");
+
+        function handleScroll() {
+          var scrolled =
+            window.pageYOffset || document.documentElement.scrollTop;
+
+          if (scrolled > navOffsetTop) {
+            // منو ثابت و بزرگ‌تر می‌شود (تصویر شماره ۲)
+            navbar.classList.add("sticky");
+            body.classList.add("has-sticky-nav");
+          } else {
+            // بازگشت به حالت اولیه (تصویر شماره ۱)
+            navbar.classList.remove("sticky");
+            body.classList.remove("has-sticky-nav");
+          }
+        }
+
+        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("resize", function () {
+          // اگر منو ثابت نیست، مقادیر را دوباره محاسبه می‌کنیم
+          if (!navbar.classList.contains("sticky")) {
+            navOffsetTop = navbar.offsetTop;
+            navHeight = navbar.offsetHeight;
+            body.style.setProperty("--navbar-height", navHeight + "px");
+          }
+        });
+
+        // یک بار در شروع کار هم اجرا می‌شود (اگر صفحه از قبل اسکرول شده باشد)
+        handleScroll();
+
+        /* ====================================================
+     بخش ۲) تغییر ظاهر title منوهای غذایی هنگام هاور ماوس
+     ----------------------------------------------------
+     - با querySelectorAll همه کارت‌های غذا را می‌گیریم.
+     - برای هر کارت دو رویداد mouseover و mouseout می‌نویسیم.
+     - با افزودن/حذف کلاس hovered، نوار عنوان از حالت
+       تصویر شماره ۳ (نوار کوتاه و مورب، فقط نام غذا) به حالت
+       تصویر شماره ۴ (نوار بزرگ و صاف همراه با توضیح و قیمت)
+       تغییر می‌کند.
+     ==================================================== */
+
+        var foodCards = document.querySelectorAll(".food-card");
+
+        foodCards.forEach(function (card) {
+          card.addEventListener("mouseover", function () {
+            card.classList.add("hovered");
+          });
+
+          card.addEventListener("mouseout", function () {
+            card.classList.remove("hovered");
+          });
+
+          // پشتیبانی از صفحه‌های لمسی: با لمس کارت هم همان حالت فعال می‌شود
+          card.addEventListener("touchstart", function () {
+            card.classList.toggle("hovered");
+          });
+        });
+
+        /* ====================================================
+     بخش اضافه) اسکرول نرم برای لینک‌های منو
+     ==================================================== */
+
+        var menuLinks = document.querySelectorAll('.navbar__menu a[href^="#"]');
+
+        menuLinks.forEach(function (link) {
+          link.addEventListener("click", function (event) {
+            var targetId = link.getAttribute("href");
+            var target = document.querySelector(targetId);
+
+            if (target) {
+              event.preventDefault();
+
+              // لینک فعال را مشخص می‌کنیم
+              menuLinks.forEach(function (item) {
+                item.classList.remove("active");
+              });
+              link.classList.add("active");
+
+              var top = target.offsetTop - navbar.offsetHeight;
+              window.scrollTo({ top: top, behavior: "smooth" });
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
