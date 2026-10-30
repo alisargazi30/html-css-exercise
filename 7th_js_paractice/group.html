@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ======== منوی بالای صفحه ======== -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <ul class="navbar__menu">
+        <li><a href="index.html">خانه</a></li>
+        <li><a href="#about">درباره ما</a></li>
+        <li><a class="active" href="#menu">منو</a></li>
+        <li><a href="#pages">صفحات</a></li>
+        <li><a href="#gallery">گالری</a></li>
+        <li><a href="#contact">تماس</a></li>
+        <li><a href="#news">اخبار</a></li>
+      </ul>
+      <div class="navbar__cart">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count">(۲)</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======== عنوان گروه غذا (تصویر شماره ۲) ======== -->
+  <header class="group-hero">
+    <div class="group-hero__overlay"></div>
+    <div class="container group-hero__content">
+      <!-- نام گروه با توجه به محصولی که روی آن کلیک شده، اینجا قرار می‌گیرد -->
+      <h1 class="group-hero__title" id="groupTitle">عنوان گروه غذا</h1>
+      <p class="breadcrumb">
+        <a href="index.html">خانه</a>
+        <span>/</span>
+        <a href="index.html#menu">منو</a>
+        <span>/</span>
+        <span id="breadcrumbGroup">عنوان گروه غذا</span>
+      </p>
+    </div>
+  </header>
+
+  <!-- ======== محصولات همان گروه (تصویر شماره ۳) ======== -->
+  <section class="products-section" id="menu">
+    <div class="container">
+      <h2 class="section-title" id="productsTitle">محصولات این گروه</h2>
+
+      <!-- این قسمت هم با حلقه و از روی فایل JSON ساخته می‌شود -->
+      <div class="product-grid" id="productGrid">
+        <p class="loading">در حال خواندن اطلاعات از فایل JSON ...</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="contact">
+    <div class="container">
+      <p>© ۱۴۰۳ ـ تمامی حقوق برای Food Delivery محفوظ است.</p>
+    </div>
+  </footer>
+
+  <script src="js/products-data.js"></script>
+  <script src="js/data-loader.js"></script>
+  <script src="js/group.js"></script>
+</body>
+</html>
