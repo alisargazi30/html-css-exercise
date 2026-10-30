@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ======== منوی بالای صفحه ======== -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <ul class="navbar__menu">
+        <li><a class="active" href="index.html">خانه</a></li>
+        <li><a href="#about">درباره ما</a></li>
+        <li><a href="#menu">منو</a></li>
+        <li><a href="#pages">صفحات</a></li>
+        <li><a href="#gallery">گالری</a></li>
+        <li><a href="#contact">تماس</a></li>
+        <li><a href="#news">اخبار</a></li>
+      </ul>
+      <div class="navbar__cart">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count">(۲)</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======== باکس‌های گروه‌های محصول (تصویر شماره ۱) ======== -->
+  <section class="groups-section" id="menu">
+    <div class="container">
+      <h2 class="section-title">منوی غذای ما</h2>
+
+      <!-- این قسمت با حلقه در جاوااسکریپت و از روی فایل JSON ساخته می‌شود -->
+      <div class="group-grid" id="groupGrid">
+        <p class="loading">در حال خواندن اطلاعات از فایل JSON ...</p>
+      </div>
+
+      <p class="hint">برای دیدن محصولات هر گروه، روی باکس آن کلیک کنید.</p>
+    </div>
+  </section>
+
+  <footer class="footer" id="contact">
+    <div class="container">
+      <p>© ۱۴۰۳ ـ تمامی حقوق برای Food Delivery محفوظ است.</p>
+    </div>
+  </footer>
+
+  <!-- داده پشتیبان برای زمانی که صفحه بدون وب‌سرور (با پروتکل file://) باز شود -->
+  <script src="js/products-data.js"></script>
+  <script src="js/data-loader.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
