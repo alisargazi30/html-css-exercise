@@ -1,0 +1,273 @@
+/* ======================================================
+   تمرین شماره ۴ - موضوع JSON
+   خواندن اطلاعات محصولات از فایل JSON و نمایش آن‌ها
+   ====================================================== */
+
+:root {
+  --orange: #f26a21;
+  --orange-dark: #d8540f;
+  --green: #9bc12c;
+  --green-dark: #86a823;
+  --dark: #2b2b2b;
+  --gray: #777;
+  --white: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Tahoma, "Segoe UI", sans-serif;
+  color: var(--dark);
+  background: #fff;
+  line-height: 1.9;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+.container {
+  width: min(1200px, 92%);
+  margin-inline: auto;
+}
+
+/* ================= منوی بالای صفحه ================= */
+.navbar {
+  background: var(--orange);
+  padding: 6px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navbar__menu a {
+  display: inline-block;
+  padding: 10px 16px;
+  color: var(--white);
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.navbar__menu a:hover,
+.navbar__menu a.active { background: var(--orange-dark); }
+
+.navbar__cart {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--white);
+  font-size: 14px;
+}
+
+/* ================= عنوان بخش ================= */
+.section-title {
+  text-align: center;
+  color: var(--white);
+  font-size: 36px;
+  margin-bottom: 40px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.loading,
+.error-box {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--white);
+  background: rgba(0, 0, 0, 0.35);
+  padding: 18px;
+  border-radius: 6px;
+}
+
+.error-box { background: rgba(170, 30, 30, 0.75); }
+
+/* ================= صفحه اول: باکس گروه‌ها (تصویر ۱) ================= */
+.groups-section {
+  padding: 70px 0 90px;
+  background: linear-gradient(135deg, #3f332b, #6d5542);
+  min-height: 90vh;
+}
+
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 26px;
+}
+
+/* هر باکس گروه: عکس محصول + عنوان آن */
+.group-card {
+  display: block;
+  background: var(--white);
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.group-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.45);
+}
+
+.group-card__img {
+  height: 240px;
+  display: grid;
+  place-items: center;
+  background: #f7f7f7;
+  font-size: 92px;
+  overflow: hidden;
+}
+
+.group-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* نوار سبز عنوان گروه، مطابق تصویر شماره ۱ */
+.group-card__title {
+  background: var(--green);
+  color: var(--white);
+  padding: 10px 18px 14px;
+  font-size: 18px;
+  clip-path: polygon(0 28%, 100% 0, 100% 100%, 0 100%);
+  transition: background 0.3s, clip-path 0.3s, padding 0.3s;
+}
+
+.group-card:hover .group-card__title {
+  background: var(--green-dark);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  padding: 14px 18px;
+}
+
+.group-card__count {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.hint {
+  text-align: center;
+  color: #f1e7df;
+  margin-top: 26px;
+  font-size: 14px;
+}
+
+/* ================= صفحه دوم: عنوان گروه (تصویر ۲) ================= */
+.group-hero {
+  position: relative;
+  min-height: 330px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background: linear-gradient(135deg, #3b2f27, #7a5c3e 45%, #c98b4b);
+  background-size: cover;
+  background-position: center;
+}
+
+.group-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.group-hero__content {
+  position: relative;
+  z-index: 2;
+}
+
+.group-hero__title {
+  font-size: 54px;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
+}
+
+.breadcrumb {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.breadcrumb span,
+.breadcrumb a { margin: 0 4px; }
+.breadcrumb a:hover { color: var(--green); }
+
+/* ================= محصولات گروه (تصویر ۳) ================= */
+.products-section {
+  padding: 60px 0 80px;
+  background: linear-gradient(135deg, #4a3b30, #6d5542);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 22px;
+}
+
+/* کارت هر محصول: اسم غذا، قیمت و محتوای غذا */
+.product-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--white);
+  padding: 16px 20px;
+  backdrop-filter: blur(2px);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.product-card:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-4px);
+}
+
+.product-card__info { flex: 1; }
+
+.product-card__name {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.product-card__content {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.product-card__price {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 8px 16px;
+  white-space: nowrap;
+  font-size: 15px;
+}
+
+/* ================= فوتر ================= */
+.footer {
+  background: var(--dark);
+  color: #ccc;
+  text-align: center;
+  padding: 24px 0;
+  font-size: 14px;
+}
+
+/* ================= واکنش‌گرایی ================= */
+@media (max-width: 860px) {
+  .navbar__inner { flex-direction: column; gap: 8px; }
+  .navbar__menu { flex-wrap: wrap; justify-content: center; }
+  .group-hero__title { font-size: 34px; }
+  .product-card { flex-direction: column; align-items: flex-start; }
+}
