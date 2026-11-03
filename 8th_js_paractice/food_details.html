@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>جزئیات غذا</title>
+  <link rel="stylesheet" href="./css/style.css" type="text/css" />
+</head>
+<body>
+
+  <!-- ======== منوی بالای صفحه ======== -->
+  <nav class="navbar">
+    <div class="container navbar__inner">
+      <ul class="navbar__menu">
+        <li><a href="index.html">خانه</a></li>
+        <li><a href="#about">درباره ما</a></li>
+        <li><a class="active" href="index.html#menu">منو</a></li>
+        <li><a href="#pages">صفحات</a></li>
+        <li><a href="#gallery">گالری</a></li>
+        <li><a href="#contact">تماس</a></li>
+        <li><a href="#news">اخبار</a></li>
+      </ul>
+      <div class="navbar__cart">
+        <span>🛒</span><span class="cart-count">(۲)</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======== عنوان صفحه: نام محصول (جای اول و دوم) ======== -->
+  <header class="page-hero">
+    <div class="page-hero__overlay"></div>
+    <div class="container page-hero__content">
+      <!-- جای اول نمایش نام محصول -->
+      <h1 id="food_title">نام غذا</h1>
+      <p class="breadcrumb">
+        <a href="index.html">خانه</a> <span>—</span>
+        <a href="index.html#menu">منو</a> <span>—</span>
+        <!-- جای دوم نمایش نام محصول -->
+        <span id="food_title_breadcrumb">نام غذا</span>
+      </p>
+    </div>
+  </header>
+
+  <!-- ======== جزئیات محصول (تصویر شماره ۳) ======== -->
+  <main class="details-section">
+    <div class="container details-grid">
+
+      <!-- ستون راست: اطلاعات غذا -->
+      <section class="details-info">
+        <div class="details-head">
+          <!-- جای سوم نمایش نام محصول -->
+          <h2 id="food_name">نام غذا</h2>
+          <span class="tag" id="group_tag">گروه غذا</span>
+        </div>
+
+        <!-- مواد تشکیل‌دهنده غذا -->
+        <p id="food_content">مواد تشکیل دهنده غذا</p>
+
+        <hr />
+
+        <!-- قیمت‌ها به ازای هر نوع (اندازه) به‌همراه تخفیف گروه -->
+        <ul class="price-list" id="price_list"></ul>
+
+        <!-- ارزش انرژی و پروتئین -->
+        <div class="meter">
+          <div class="meter__label">
+            <span>ارزش انرژی</span>
+            <span id="energy_value"></span>
+          </div>
+          <div class="meter__bar"><span id="energy_bar"></span></div>
+        </div>
+
+        <div class="meter">
+          <div class="meter__label">
+            <span>پروتئین‌ها</span>
+            <span id="protein_value"></span>
+          </div>
+          <div class="meter__bar"><span id="protein_bar"></span></div>
+        </div>
+
+        <button class="btn" type="button">افزودن به سبد خرید</button>
+      </section>
+
+      <!-- ستون چپ: عکس‌های محصول -->
+      <section class="details-gallery">
+        <!-- عکس بزرگ محصول با جاوااسکریپت اینجا قرار می‌گیرد -->
+        <div id="image_large"></div>
+        <!-- عکس‌های کوچک محصول با جاوااسکریپت اینجا قرار می‌گیرند -->
+        <div id="image_small"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container">
+      <p>© ۱۴۰۳ ـ تمامی حقوق برای Food Delivery محفوظ است.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/details.js"></script>
+</body>
+</html>
