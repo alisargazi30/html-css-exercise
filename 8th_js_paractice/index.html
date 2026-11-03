@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>منوی غذا</title>
+  <link rel="stylesheet" href="./css/style.css" type="text/css" />
+</head>
+<body>
+
+  <!-- ======== منوی بالای صفحه ======== -->
+  <nav class="navbar">
+    <div class="container navbar__inner">
+      <ul class="navbar__menu">
+        <li><a class="active" href="index.html">خانه</a></li>
+        <li><a href="#about">درباره ما</a></li>
+        <li><a href="#menu">منو</a></li>
+        <li><a href="#pages">صفحات</a></li>
+        <li><a href="#gallery">گالری</a></li>
+        <li><a href="#contact">تماس</a></li>
+        <li><a href="#news">اخبار</a></li>
+      </ul>
+      <div class="navbar__cart">
+        <span>🛒</span><span class="cart-count">(۲)</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======== عنوان صفحه ======== -->
+  <header class="page-hero">
+    <div class="page-hero__overlay"></div>
+    <div class="container page-hero__content">
+      <h1>منوی غذای ما</h1>
+      <p class="breadcrumb"><a href="index.html">خانه</a> <span>—</span> <span>منو</span></p>
+    </div>
+  </header>
+
+  <!-- ======== گروه‌ها و محصولات (تصویر شماره ۱) ======== -->
+  <main class="menu-section" id="menu">
+    <div class="container">
+      <!-- این بخش با جاوااسکریپت از روی فایل داده ساخته می‌شود -->
+      <div id="groupsWrapper">
+        <p class="loading">در حال خواندن اطلاعات ...</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container">
+      <p>© ۱۴۰۳ ـ تمامی حقوق برای Food Delivery محفوظ است.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
