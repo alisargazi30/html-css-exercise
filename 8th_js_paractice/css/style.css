@@ -1,0 +1,386 @@
+/* ======================================================
+   تمرین شماره ۵ - موضوع Dataset و Query string
+   ====================================================== */
+
+/* ---------- فونت فارسی (وزیرمتن) ---------- */
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("../fonts/Vazirmatn-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("../fonts/Vazirmatn-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --orange: #f26a21;
+  --orange-dark: #d8540f;
+  --green: #9bc12c;
+  --dark: #2b2b2b;
+  --gray: #7a7a7a;
+  --line: #e7e7e7;
+  --white: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Vazirmatn", Tahoma, "Segoe UI", sans-serif;
+  color: var(--dark);
+  background: #fff;
+  line-height: 2;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+.container {
+  width: min(1180px, 92%);
+  margin-inline: auto;
+}
+
+/* ================= منو ================= */
+.navbar {
+  background: var(--orange);
+  padding: 6px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__menu { display: flex; gap: 4px; }
+
+.navbar__menu a {
+  display: inline-block;
+  padding: 8px 15px;
+  color: var(--white);
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.navbar__menu a:hover,
+.navbar__menu a.active { background: var(--orange-dark); }
+
+.navbar__cart {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--white);
+  font-size: 14px;
+}
+
+/* ================= هدر صفحه ================= */
+.page-hero {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  background: linear-gradient(135deg, #3b2f27, #7a5c3e 45%, #c98b4b);
+}
+
+.page-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.page-hero__content { position: relative; z-index: 2; }
+
+.page-hero h1 {
+  font-size: 48px;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
+}
+
+.breadcrumb { font-size: 14px; opacity: 0.92; }
+.breadcrumb a:hover { color: var(--green); }
+.breadcrumb span { margin: 0 4px; }
+
+/* ================= صفحه اصلی: گروه‌ها و محصولات ================= */
+.menu-section {
+  padding: 60px 0 80px;
+  background: linear-gradient(135deg, #46382e, #6d5542);
+}
+
+.loading {
+  text-align: center;
+  color: var(--white);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  border-radius: 6px;
+}
+
+.group-block { margin-bottom: 54px; }
+
+.group-block__head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.group-block__head h2 {
+  color: var(--white);
+  font-size: 30px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.discount-badge {
+  background: var(--orange);
+  color: var(--white);
+  font-size: 13px;
+  padding: 2px 12px;
+  border-radius: 20px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 18px;
+}
+
+/* کارت هر محصول: عنوان قابل کلیک + مواد تشکیل‌دهنده + قیمت */
+.product-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--white);
+  padding: 14px 18px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.product-card:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+}
+
+.product-card__name {
+  font-size: 18px;
+  color: var(--green);
+  transition: color 0.3s;
+}
+
+.product-card__name:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+.product-card__content {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.product-card__price {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 6px 14px;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.product-card__price del {
+  display: block;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+/* ================= صفحه جزئیات محصول ================= */
+.details-section { padding: 50px 0 70px; }
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.details-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 4px;
+}
+
+.details-head h2 { font-size: 30px; }
+
+.tag {
+  background: var(--orange);
+  color: var(--white);
+  font-size: 13px;
+  padding: 2px 14px;
+  border-radius: 4px;
+}
+
+#food_content {
+  color: var(--gray);
+  font-size: 14px;
+}
+
+.details-info hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 18px 0;
+}
+
+/* ---- لیست قیمت‌ها ---- */
+.price-list { margin-bottom: 26px; }
+
+.price-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 17px;
+}
+
+.price-list .type {
+  background: var(--orange);
+  color: var(--white);
+  font-size: 12px;
+  padding: 1px 12px;
+  border-radius: 20px;
+}
+
+.price-list del {
+  color: var(--orange);
+  opacity: 0.85;
+}
+
+.price-list .final { font-weight: 700; }
+
+/* ---- نوارهای انرژی و پروتئین ---- */
+.meter { margin-bottom: 16px; }
+
+.meter__label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--gray);
+}
+
+.meter__bar {
+  height: 22px;
+  background: #f1f1f1;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.meter__bar span {
+  display: block;
+  height: 100%;
+  background: var(--orange);
+  color: var(--white);
+  font-size: 12px;
+  text-align: center;
+  line-height: 22px;
+  transition: width 0.6s ease;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--orange);
+  color: var(--white);
+  border: none;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px 34px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover { background: var(--orange-dark); }
+
+/* ---- گالری عکس محصول ---- */
+#image_large {
+  border: 1px solid var(--line);
+  height: 360px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #fafafa;
+  font-size: 110px;
+}
+
+#image_large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#image_small {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+#image_small .thumb {
+  width: 92px;
+  height: 92px;
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  background: #fafafa;
+  font-size: 34px;
+  transition: border-color 0.3s;
+}
+
+#image_small .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#image_small .thumb.active,
+#image_small .thumb:hover { border-color: var(--orange); }
+
+.error-box {
+  background: #fdecea;
+  border: 1px solid #f5a79e;
+  color: #a4291c;
+  padding: 16px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+/* ================= فوتر ================= */
+.footer {
+  background: var(--dark);
+  color: #ccc;
+  text-align: center;
+  padding: 22px 0;
+  font-size: 14px;
+}
+
+/* ================= واکنش‌گرایی ================= */
+@media (max-width: 900px) {
+  .details-grid { grid-template-columns: 1fr; }
+  .details-gallery { order: -1; }
+  .navbar__inner { flex-direction: column; gap: 8px; }
+  .navbar__menu { flex-wrap: wrap; justify-content: center; }
+  .page-hero h1 { font-size: 32px; }
+  .product-card { flex-direction: column; align-items: flex-start; }
+}
