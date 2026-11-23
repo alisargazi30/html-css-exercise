@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>جستجوی غذا</title>
+  <link rel="stylesheet" href="./css/style.css" type="text/css" />
+</head>
+<body>
+
+  <!-- ======== منوی بالای صفحه ======== -->
+  <nav class="navbar">
+    <div class="container navbar__inner">
+      <ul class="navbar__menu">
+        <li><a href="index.html">خانه</a></li>
+        <li><a href="#about">درباره ما</a></li>
+        <li><a class="active" href="search.html">جستجو</a></li>
+        <li><a href="register.html">ثبت نام</a></li>
+        <li><a href="#gallery">گالری</a></li>
+        <li><a href="#contact">تماس</a></li>
+      </ul>
+      <div class="navbar__cart"><span>🛒</span><span class="cart-count">(۰)</span></div>
+    </div>
+  </nav>
+
+  <main class="search-page">
+    <div class="container">
+
+      <h1 class="page-title">جستجوی غذا</h1>
+
+      <!-- ======== باکس جستجو (تصویر شماره ۱) ========
+           در حالت عادی فقط دکمه ذره‌بین دیده می‌شود؛ با کلیک روی آن،
+           کادر جستجو با انیمیشن باز می‌شود. -->
+      <div class="search-bar" id="search_bar">
+        <button class="search-toggle" id="search_toggle" type="button" title="جستجو">
+          <span class="icon-search">🔍</span>
+        </button>
+
+        <div class="search-box" id="search_box">
+          <input type="text" id="search_input" placeholder="غذای خود را جستجو کنید..." />
+          <button class="search-submit" id="search_submit" type="button" title="جستجو">
+            <span class="icon-search">🔍</span>
+          </button>
+        </div>
+
+        <button class="search-close" id="search_close" type="button" title="بستن">✕</button>
+      </div>
+
+      <!-- ======== نتیجه جستجو (تصویر شماره ۲) ======== -->
+      <section class="search-result" id="search_result">
+        <h2 class="search-result__title">نتیجه جستجوی شما :</h2>
+        <div id="result_body"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container">
+      <p>© ۱۴۰۳ ـ تمامی حقوق برای Food Delivery محفوظ است.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>
