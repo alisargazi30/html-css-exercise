@@ -1,0 +1,440 @@
+/* ======================================================
+   تمرین شماره ۷ - اعتبارسنجی فرم‌ها و انیمیشن
+   ====================================================== */
+
+/* ---------- فونت فارسی (وزیرمتن) ---------- */
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("../fonts/Vazirmatn-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("../fonts/Vazirmatn-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --orange: #f26a21;
+  --orange-dark: #d8540f;
+  --blue: #2f80ed;
+  --red: #e53935;
+  --green: #4caf50;
+  --dark: #2b2b2b;
+  --gray: #7a7a7a;
+  --line: #e7e7e7;
+  --white: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Vazirmatn", Tahoma, "Segoe UI", sans-serif;
+  color: var(--dark);
+  background: #f5f6f8;
+  line-height: 2;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+.container {
+  width: min(1100px, 92%);
+  margin-inline: auto;
+}
+
+/* ================= منو ================= */
+.navbar {
+  background: var(--orange);
+  padding: 6px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__menu { display: flex; gap: 4px; }
+
+.navbar__menu a {
+  display: inline-block;
+  padding: 8px 15px;
+  color: var(--white);
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.navbar__menu a:hover,
+.navbar__menu a.active { background: var(--orange-dark); }
+
+.navbar__cart {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--white);
+  font-size: 14px;
+}
+
+/* ================= عنوان صفحه ================= */
+.page-title {
+  font-size: 26px;
+  margin: 36px 0 6px;
+}
+
+.page-hint {
+  color: var(--gray);
+  font-size: 14px;
+  margin-bottom: 26px;
+}
+
+/* ================= صفحه خانه ================= */
+.home-page { padding-bottom: 70px; }
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  margin-top: 26px;
+}
+
+.home-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 28px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.home-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+}
+
+.home-card__icon { font-size: 42px; }
+.home-card h2 { font-size: 20px; margin: 8px 0 4px; }
+.home-card p { color: var(--gray); font-size: 14px; }
+
+/* ================= صفحه جستجو ================= */
+.search-page { padding-bottom: 80px; }
+
+/* نوار جستجو: در حالت عادی فقط دکمه ذره‌بین دیده می‌شود */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  border-radius: 40px;
+  padding: 14px 18px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  margin-bottom: 30px;
+}
+
+.search-toggle,
+.search-submit {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border: none;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.search-toggle:hover,
+.search-submit:hover {
+  background: #1b64c9;
+  transform: scale(1.06);
+}
+
+/* --- انیمیشن باز شدن کادر جستجو --- */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ededed;
+  border-radius: 40px;
+  padding: 0;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateX(30px);
+  transition: width 0.45s ease, opacity 0.35s ease,
+              transform 0.45s ease, padding 0.45s ease;
+}
+
+.search-bar.open .search-box {
+  width: min(430px, 70vw);
+  opacity: 1;
+  transform: translateX(0);
+  padding: 6px 8px 6px 6px;
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--dark);
+  padding: 8px 14px;
+}
+
+.search-box input::placeholder { color: #9a9a9a; }
+
+/* دکمه بستن (✕ قرمز) */
+.search-close {
+  border: none;
+  background: transparent;
+  color: var(--red);
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.6);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.search-bar.open .search-close {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+/* --- نتیجه جستجو --- */
+.search-result {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 22px;
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.search-result.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.search-result__title {
+  font-size: 17px;
+  color: var(--orange);
+  margin-bottom: 14px;
+}
+
+.result-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 120px 150px;
+  align-items: center;
+  gap: 14px;
+  border-top: 1px solid var(--line);
+  padding: 12px 0;
+  font-size: 14px;
+}
+
+.result-row__img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #fafafa;
+  border: 1px solid var(--line);
+  font-size: 26px;
+}
+
+.result-row__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.result-row__name { font-weight: 700; }
+.result-row__type { color: var(--gray); }
+.result-row__price { color: var(--gray); }
+
+.not-found {
+  text-align: center;
+  color: var(--red);
+  padding: 18px 0;
+}
+
+/* ================= صفحه ثبت نام ================= */
+.register-page { padding-bottom: 90px; }
+
+.form-wrapper {
+  position: relative;
+  width: min(420px, 100%);
+  margin-top: 10px;
+}
+
+/* --- انیمیشن باز و بسته شدن فرم --- */
+.register-form {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+  padding: 0 26px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-14px) scale(0.97);
+  transform-origin: bottom center;
+  transition: max-height 0.5s ease, opacity 0.4s ease,
+              transform 0.5s ease, padding 0.5s ease;
+}
+
+.form-wrapper.open .register-form {
+  max-height: 900px;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  padding: 26px 26px 34px;
+}
+
+.register-form h2 {
+  font-size: 20px;
+  margin-bottom: 18px;
+}
+
+.register-form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.register-form input {
+  width: 100%;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background: #fbfbfb;
+  font-family: inherit;
+  font-size: 15px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.register-form input:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(242, 106, 33, 0.12);
+}
+
+.register-form input.invalid {
+  border-color: var(--red);
+  background: #fff5f5;
+}
+
+.submit-btn {
+  width: 100%;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background: #e9ebef;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.submit-btn:hover {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: var(--white);
+}
+
+/* --- لیست خطاها --- */
+.error-list {
+  margin-top: 16px;
+  padding-right: 18px;
+  color: var(--red);
+  font-size: 13px;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.error-list.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.error-list li {
+  list-style: disc;
+  margin-bottom: 2px;
+}
+
+.success-message {
+  margin-top: 14px;
+  color: var(--green);
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.success-message.show { opacity: 1; }
+
+/* --- دکمه + و ✕ --- */
+.toggle-btn {
+  position: relative;
+  margin: 18px auto 0;
+  display: block;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 50%;
+  background: var(--red);
+  color: var(--white);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(229, 57, 53, 0.35);
+  transition: transform 0.45s ease, background 0.3s;
+}
+
+.toggle-btn:hover { background: #c62828; }
+
+.form-wrapper.open .toggle-btn { transform: rotate(180deg); }
+
+/* ================= فوتر ================= */
+.footer {
+  background: var(--dark);
+  color: #ccc;
+  text-align: center;
+  padding: 22px 0;
+  font-size: 14px;
+}
+
+/* ================= واکنش‌گرایی ================= */
+@media (max-width: 860px) {
+  .navbar__inner { flex-direction: column; gap: 8px; }
+  .navbar__menu { flex-wrap: wrap; justify-content: center; }
+  .result-row {
+    grid-template-columns: 56px 1fr;
+    row-gap: 4px;
+  }
+  .search-bar.open .search-box { width: 100%; }
+  .search-bar { flex-wrap: wrap; }
+}
