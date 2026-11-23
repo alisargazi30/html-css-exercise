@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ثبت نام</title>
+  <link rel="stylesheet" href="./css/style.css" type="text/css" />
+</head>
+<body>
+
+  <!-- ======== منوی بالای صفحه ======== -->
+  <nav class="navbar">
+    <div class="container navbar__inner">
+      <ul class="navbar__menu">
+        <li><a href="index.html">خانه</a></li>
+        <li><a href="#about">درباره ما</a></li>
+        <li><a href="search.html">جستجو</a></li>
+        <li><a class="active" href="register.html">ثبت نام</a></li>
+        <li><a href="#gallery">گالری</a></li>
+        <li><a href="#contact">تماس</a></li>
+      </ul>
+      <div class="navbar__cart"><span>🛒</span><span class="cart-count">(۰)</span></div>
+    </div>
+  </nav>
+
+  <main class="register-page">
+    <div class="container">
+
+      <h1 class="page-title">عضویت در رستوران</h1>
+      <p class="page-hint">برای باز شدن فرم، روی دکمه + کلیک کنید.</p>
+
+      <!-- ======== فرم عضویت (تصویرهای ۳ و ۴) ========
+           فرم در حالت اولیه بسته است و با کلیک روی دکمه + با انیمیشن باز می‌شود. -->
+      <div class="form-wrapper" id="form_wrapper">
+
+        <form class="register-form" id="register_form" novalidate>
+          <h2>فرم عضویت در رستوران</h2>
+
+          <label for="first_name">نام</label>
+          <input type="text" id="first_name" name="first_name" />
+
+          <label for="last_name">نام خانوادگی</label>
+          <input type="text" id="last_name" name="last_name" />
+
+          <label for="mobile">موبایل</label>
+          <input type="text" id="mobile" name="mobile" inputmode="numeric" />
+
+          <button class="submit-btn" type="submit" id="submit_btn">ثبت نام</button>
+
+          <!-- لیست خطاهای اعتبارسنجی -->
+          <ul class="error-list" id="error_list"></ul>
+
+          <!-- پیام موفقیت -->
+          <p class="success-message" id="success_message"></p>
+        </form>
+
+        <!-- دکمه باز و بسته کردن فرم -->
+        <button class="toggle-btn" id="toggle_btn" type="button" title="باز کردن فرم">
+          <span id="toggle_icon">+</span>
+        </button>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container">
+      <p>© ۱۴۰۳ ـ تمامی حقوق برای Food Delivery محفوظ است.</p>
+    </div>
+  </footer>
+
+  <script src="js/register.js"></script>
+</body>
+</html>
