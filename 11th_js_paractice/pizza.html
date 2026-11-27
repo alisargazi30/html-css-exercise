@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تهیه پیتزا</title>
+  <link rel="stylesheet" href="./css/style.css" type="text/css" />
+</head>
+<body>
+
+  <!-- ======== منوی بالای صفحه (گزینه «تهیه پیتزا» اضافه شده است) ======== -->
+  <nav class="navbar">
+    <div class="container navbar__inner">
+      <ul class="navbar__menu">
+        <li><a href="index.html">خانه</a></li>
+        <li><a href="#about">درباره ما</a></li>
+        <li><a href="#menu">منو</a></li>
+        <li><a href="#search">جستجو</a></li>
+        <li><a href="#gallery">گالری</a></li>
+        <li><a class="active" href="pizza.html">تهیه پیتزا</a></li>
+        <li><a href="#register">عضویت</a></li>
+      </ul>
+      <div class="navbar__cart"><span>🛒</span><span class="cart-count">(۰)</span></div>
+    </div>
+  </nav>
+
+  <main class="pizza-page">
+    <div class="container">
+
+      <h1 class="pizza-title">پیتزای مورد علاقه خودت رو درست کن!</h1>
+
+      <div class="pizza-layout">
+
+        <!-- ======== ستون راست: قیمت و کالری ======== -->
+        <aside class="pizza-summary">
+          <div class="summary-box">
+            <span class="summary-box__label">قیمت</span>
+            <strong class="summary-box__value" id="total_price">۰</strong>
+            <span class="summary-box__unit">تومان</span>
+          </div>
+
+          <div class="summary-box">
+            <span class="summary-box__label">میزان کالری</span>
+            <strong class="summary-box__value" id="total_calories">۰</strong>
+            <span class="summary-box__unit">کیلو کالری</span>
+          </div>
+
+          <ul class="chosen-list" id="chosen_list"></ul>
+
+          <button class="btn btn--ghost" type="button" id="reset_btn">پاک کردن پیتزا</button>
+          <button class="btn" type="button" id="order_btn">ثبت سفارش</button>
+          <p class="order-message" id="order_message"></p>
+        </aside>
+
+        <!-- ======== ستون میانی: خمیر پیتزا (محل رها کردن) ======== -->
+        <section class="pizza-board" id="pizza_board">
+          <div class="pizza-dough" id="pizza_dough">
+            <span class="dough-hint" id="dough_hint">مواد را روی خمیر بکشید و رها کنید</span>
+          </div>
+        </section>
+
+        <!-- ======== ستون چپ: مواد تشکیل‌دهنده (از فایل JSON) ======== -->
+        <aside class="ingredient-bar">
+          <div class="ingredient-list" id="ingredient_list">
+            <p class="loading" id="loading_box">در حال بارگذاری مواد ...</p>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container">
+      <p>© ۱۴۰۳ ـ تمامی حقوق برای Food Delivery محفوظ است.</p>
+    </div>
+  </footer>
+
+  <script src="js/pizza-data.js"></script>
+  <script src="js/pizza.js"></script>
+</body>
+</html>
