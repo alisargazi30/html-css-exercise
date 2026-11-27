@@ -1,0 +1,353 @@
+/* ======================================================
+   تمرین شماره ۸ - drag and drop و async/sync
+   صفحه «تهیه پیتزا»
+   ====================================================== */
+
+/* ---------- فونت فارسی (وزیرمتن) ---------- */
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("../fonts/Vazirmatn-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("../fonts/Vazirmatn-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --orange: #f26a21;
+  --orange-dark: #d8540f;
+  --green: #9bc12c;
+  --dark: #2b2b2b;
+  --gray: #7a7a7a;
+  --line: #e7e7e7;
+  --dough: #efdfc3;
+  --white: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Vazirmatn", Tahoma, "Segoe UI", sans-serif;
+  color: var(--dark);
+  background: #f5f6f8;
+  line-height: 2;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+.container {
+  width: min(1180px, 94%);
+  margin-inline: auto;
+}
+
+/* ================= منو ================= */
+.navbar {
+  background: var(--orange);
+  padding: 6px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__menu { display: flex; gap: 4px; }
+
+.navbar__menu a {
+  display: inline-block;
+  padding: 8px 14px;
+  color: var(--white);
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.navbar__menu a:hover,
+.navbar__menu a.active { background: var(--orange-dark); }
+
+.navbar__cart {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--white);
+  font-size: 14px;
+}
+
+/* ================= صفحه خانه ================= */
+.home-page { padding: 40px 0 80px; }
+
+.home-card {
+  display: block;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  max-width: 420px;
+  margin: 24px auto 0;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.home-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+}
+
+.home-card__icon { font-size: 46px; }
+.home-card h2 { font-size: 21px; margin: 6px 0 4px; }
+.home-card p { color: var(--gray); font-size: 14px; }
+
+/* ================= صفحه تهیه پیتزا ================= */
+.pizza-page { padding: 24px 0 70px; }
+
+.pizza-title {
+  text-align: center;
+  color: var(--orange);
+  font-size: 22px;
+  margin-bottom: 18px;
+}
+
+/* سه ستون (صفحه راست‌چین): قیمت و کالری (راست) ـ خمیر (وسط) ـ مواد (چپ) */
+.pizza-layout {
+  display: grid;
+  grid-template-columns: 150px 1fr 210px;
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* ---------- ستون مواد تشکیل‌دهنده ---------- */
+.ingredient-bar {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.ingredient-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ingredient {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 40px;
+  padding: 6px 10px;
+  background: #fafafa;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.ingredient:hover {
+  transform: translateY(-2px);
+  border-color: var(--orange);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.ingredient.dragging { opacity: 0.45; cursor: grabbing; }
+
+.ingredient img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* وقتی فایل عکس موجود نباشد، آیکن جایگزین نمایش داده می‌شود */
+.ingredient__icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  background: #f1f1f1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ingredient__name { font-size: 14px; }
+
+.loading {
+  text-align: center;
+  color: var(--gray);
+  font-size: 14px;
+  padding: 14px 0;
+}
+
+/* ---------- ستون میانی: خمیر پیتزا ---------- */
+.pizza-board {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  min-height: 460px;
+}
+
+.pizza-dough {
+  position: relative;
+  width: min(420px, 70vw);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, #f6ead3 0%, var(--dough) 60%, #ddc69c 100%);
+  box-shadow: inset 0 0 0 14px #e8d6b4, 0 10px 26px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.pizza-dough.over {
+  box-shadow: inset 0 0 0 14px #e8d6b4, 0 0 0 6px rgba(242, 106, 33, 0.35);
+  transform: scale(1.01);
+}
+
+.dough-hint {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #a08a63;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* ماده‌ای که روی پیتزا رها شده است */
+.topping {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  margin-right: -23px;           /* مرکز تصویر روی نقطه رها شدن */
+  margin-top: -23px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  animation: drop-in 0.25s ease;
+}
+
+.topping img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.topping--icon { font-size: 32px; }
+.topping--icon img { display: none; }
+
+@keyframes drop-in {
+  from { transform: scale(1.6); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* ---------- ستون قیمت و کالری ---------- */
+.pizza-summary {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px 12px;
+  text-align: center;
+}
+
+.summary-box {
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-content: center;
+  margin-bottom: 14px;
+  padding: 6px;
+}
+
+.summary-box__label { font-size: 12px; color: var(--gray); }
+.summary-box__value { font-size: 17px; color: var(--orange); }
+.summary-box__unit { font-size: 11px; color: var(--gray); }
+
+.chosen-list {
+  text-align: right;
+  font-size: 12px;
+  color: var(--gray);
+  margin: 10px 0 14px;
+  max-height: 150px;
+  overflow: auto;
+}
+
+.chosen-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  border-bottom: 1px dashed var(--line);
+  padding: 2px 0;
+}
+
+.btn {
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  background: var(--orange);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover { background: var(--orange-dark); }
+
+.btn--ghost {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--gray);
+}
+
+.btn--ghost:hover { background: #f1f1f1; color: var(--dark); }
+
+.order-message {
+  font-size: 12px;
+  color: var(--green);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.order-message.show { opacity: 1; }
+
+/* ================= فوتر ================= */
+.footer {
+  background: var(--dark);
+  color: #ccc;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+  margin-top: 30px;
+}
+
+/* ================= واکنش‌گرایی ================= */
+@media (max-width: 960px) {
+  .pizza-layout { grid-template-columns: 1fr; }
+  .ingredient-list { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  .ingredient { width: auto; }
+  .summary-box { aspect-ratio: auto; border-radius: 8px; padding: 10px; }
+  .navbar__inner { flex-direction: column; gap: 8px; }
+  .navbar__menu { flex-wrap: wrap; justify-content: center; }
+}
